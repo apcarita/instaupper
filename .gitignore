@@ -1,0 +1,11 @@
+.env
+.venv/
+@pycache
+__pycache__
+*.pyc
+To_upload
+Uploaded
+.session.dat
+.Xsession.dat
+log
+.DS_Store
