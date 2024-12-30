@@ -24,7 +24,7 @@ def log(title, platform):
     with open(log_dir, "a") as log_file:
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print(f"Script ran at: {current_time} | Uploaded file: {title}\n to {platform}")
-        log_file.write(f"Script ran at: {current_time} | Uploaded file: {title}\n")
+        log_file.write(f"Script ran at: {current_time} | Uploaded file: {title}\n to {platform}")
 
 if __name__ == "__main__":
     to_upload_dir = Path("To_Upload")
@@ -33,14 +33,15 @@ if __name__ == "__main__":
     video_files = to_upload_dir.glob("*.mp4")
 
     hashtags = ['#faith', '#religion', '#spirituality', '#bible', '#god', '#jesus', '#christianity']
-
+    i = 0
     for video_file in video_files:
+        i += 1
         title = video_file.stem + " " + " ".join(hashtags)  # Use the file name (without extension) as the title
         file_dir = str(video_file)
         try:
             print("uploading to X")
-            #uc.loop().run_until_complete(postX(file_dir, title))
-            #log(title, "X")
+            uc.loop().run_until_complete(postX(file_dir, title))
+            log(title, "X")
         except:
             print("Failed to upload to X")
         try:
@@ -51,6 +52,7 @@ if __name__ == "__main__":
             print("Failed to upload to Instagram")
 
         video_file.rename(uploaded_dir / video_file.name)
-
+        if(i >= 3):
+            break
 
         
